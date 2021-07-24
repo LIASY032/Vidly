@@ -1,18 +1,12 @@
-const express = require("express");
+const winston = require('winston');
+const express = require('express');
 const app = express();
-const config = require("config");
 
-require("./startup/routes")(app);
-require("./startup/db")();
-require("./startup/logging")();
-
-// const p = Promise.reject(new Error("Something failed miserably!"));
-// p.then(() => console.log("Done"));
-
-if (!config.get("jwtPrivateKey")) {
-  console.log("FATAL ERROR: jwtPrivateKey is not defined");
-  process.exit(1);
-}
+require('./startup/logging');
+require('./startup/routes')(app);
+require('./startup/db')();
+require('./startup/config')();
+require('./startup/validation')();
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+app.listen(port, () => winston.info(`Listening on port ${port}...`));

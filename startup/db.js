@@ -6,9 +6,6 @@ module.exports = function () {
     .connect("mongodb://localhost/vidly", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
     })
-    .then(() => winston.info("Connected to MongoDB..."))
-    .catch((err) => console.error("Could not connect to MongoDB..."));
+    .then(() => winston.info("Connected to MongoDB..."));
 };
